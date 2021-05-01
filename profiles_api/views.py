@@ -8,6 +8,8 @@ from profiles_api import serializer
 class HelloAPIView(APIView):
     """ API View prueba """
 
+    serializer_class = serializer.HelloSerializer
+
     def get(self, request, formart=None):
         """ Retornar lista de caracteristica del APIView """
         an_apiview = [
@@ -23,3 +25,22 @@ class HelloAPIView(APIView):
                 'an_apiview': an_apiview
             }
         )
+
+    def post(self, request):
+        """ Crea un mensaje con nuestro nombre """
+        # serializer_class es una clase que configura nuestra clase para la PIVIEW, es una manera estandar
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            name = serializer.validated_data.get(name)
+            message = f'Hello {name}'
+            return Response(
+                {
+                    'message': message
+                }
+            )
+        else:
+            return Response(
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
+            )
