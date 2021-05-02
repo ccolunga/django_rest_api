@@ -44,15 +44,3 @@ class HelloAPIView(APIView):
                 serializer.errors,
                 status=status.HTTP_400_BAD_REQUEST
             )
-
-        def put(self, request, pk=None):
-            """ Maneja actualizar un objeto """
-            return Response({'method': 'PUT'})
-
-        def patch(self, request, pk=None):
-            """ Maneja actualizar parcial de un objeto """
-            return Response({'method': 'PATCH'})
-
-        def delete(self, request, pk=None):
-            """ Delete un objeto """
-            return Response({'method': 'DELETE'})
